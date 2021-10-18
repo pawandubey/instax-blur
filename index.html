@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title> Instax Blur </title>
+
+        <style>
+         #main {
+             display: grid;
+             place-items: center;
+         }
+         #imageBox {
+             display: grid;
+             /* place-items: center; */
+             justify-content: center;
+             width: 540;
+             height: 540;
+             overflow: hidden;
+         }
+
+         #foreground {
+             place-self: center;
+             grid-row: 1;
+             grid-column: 1;
+         }
+
+         #background {
+             display: inline-block;
+             z-index: -1;
+             grid-row: 1;
+             grid-column: 1;
+             place-self: center;
+             background-image: url("firewatch.jpg");
+             background-repeat: no-repeat;
+             background-size: cover;
+             background-position: center;
+             filter: blur(10px) hue-rotate(180deg) contrast(50%);
+             width: 200%;
+             height: 200%;
+         }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <p> <h1> Instax Blur </h1> </p>
+            <div id="controls">
+                <form>
+                    <input type="file" accept="image/*" name="imageFileInput" id="imageFileInput" />
+                </form>
+            </div>
+            <div id="imageBox">
+                <div id="background">
+                </div>
+                <div id="foreground">
+                    <img id="image" src="firewatch.jpg" width="540">
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+     imageFileInput = document.getElementById("imageFileInput");
+     image = document.getElementById("image");
+     background = document.getElementById("background");
+
+     imageFileInput.onchange = evt => {
+         const [file] = imageFileInput.files
+         if (file) {
+             imageSrc = URL.createObjectURL(file)
+             image.src = imageSrc
+             background.style.backgroundImage = `url("${imageSrc}")`
+         }
+     }
+    </script>
+</html>
