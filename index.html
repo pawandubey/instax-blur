@@ -35,26 +35,48 @@
              grid-row: 1;
              grid-column: 1;
              place-self: center;
+             width: 200%;
+             height: 200%;
+         }
+
+         .imageBg {
              background-image: url("landscape.jpg");
              background-repeat: no-repeat;
              background-size: cover;
              background-position: center;
              filter: blur(10px) hue-rotate(180deg) contrast(50%);
-             width: 200%;
-             height: 200%;
+         }
+
+         .blackBg {
+             background-image: none;
+             filter: none;
+             background-color: black;
+         }
+
+         .whiteBg {
+             background-image: none;
+             filter: none;
+             background-color: white;
          }
         </style>
     </head>
     <body>
         <div id="main">
-            <p> <h1> Instax Blur </h1> </p>
+            <p> <h1> Instax Square Blur Background </h1> </p>
             <div id="controls">
                 <form>
                     <input type="file" accept="image/*" name="imageFileInput" id="imageFileInput" />
+
+                    <input type="radio" name="backgroundType" id="img" value="image" checked />
+                    <label for="image">Image</label>
+                    <input type="radio" name="backgroundType" id="white" value="white" />
+                    <label for="white">White</label>
+                    <input type="radio" name="backgroundType" id="black" value="black" />
+                    <label for="black">Black</label>
                 </form>
             </div>
             <div id="imageBox">
-                <div id="background">
+                <div id="background" class="imageBg">
                 </div>
                 <div id="foreground">
                     <img id="image" src="landscape.jpg">
@@ -68,12 +90,53 @@
      image = document.getElementById("image");
      background = document.getElementById("background");
 
+     backgroundTypeSelect = document.querySelectorAll("input[type=radio][name=backgroundType]")
+
+     backgroundOriginalImage = background.style.backgroundImage;
+     backgroundOriginalFilter = background.style.filter;
+
      imageFileInput.onchange = evt => {
-         const [file] = imageFileInput.files
+         setImageBackground();
+     }
+
+     backgroundTypeSelect.forEach(item => (item.onchange = evt => {
+         changeBackground(evt);
+     }))
+
+     function setWhiteBackground() {
+         background.style.removeProperty("background-image")
+         background.classList.remove("imageBg")
+         background.classList.remove("blackBg")
+         background.classList.add("whiteBg")
+     }
+
+     function setBlackBackground() {
+         background.style.removeProperty("background-image")
+         background.classList.remove("imageBg")
+         background.classList.remove("whiteBg")
+         background.classList.add("blackBg")
+     }
+
+     function setImageBackground() {
+         background.classList.remove("blackBg")
+         background.classList.remove("whiteBg")
+         background.classList.add("imageBg")
+
+         const [file] = imageFileInput.files;
          if (file) {
-             imageSrc = URL.createObjectURL(file)
-             image.src = imageSrc
-             background.style.backgroundImage = `url("${imageSrc}")`
+             imageSrc = URL.createObjectURL(file);
+             image.src = imageSrc;
+             background.style.backgroundImage = `url("${imageSrc}")`;
+         }
+     }
+
+     function changeBackground(e) {
+         if (e.target.value === "image") {
+             setImageBackground();
+         } else if (e.target.value === "white") {
+             setWhiteBackground();
+         } else {
+             setBlackBackground();
          }
      }
     </script>
