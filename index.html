@@ -1,6 +1,7 @@
 <html>
     <head>
         <title> Instax Blur </title>
+        <link rel="stylesheet" href="https://unpkg.com/chota@latest">
 
         <style>
          #main {
@@ -58,28 +59,65 @@
              filter: none;
              background-color: white;
          }
+
+         kbd {
+             background-color: #eee;
+             border-radius: 3px;
+             border: 1px solid #b4b4b4;
+             box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+             color: #333;
+             display: inline-block;
+             font-size: .85em;
+             font-weight: 700;
+             line-height: 1;
+             padding: 2px 4px;
+             white-space: nowrap;
+         }
+
         </style>
     </head>
     <body>
-        <div id="main">
-            <p> <h1> Instax Square Blur Background </h1> </p>
-            <div id="controls">
-                <form>
-                    <input type="file" accept="image/*" name="imageFileInput" id="imageFileInput" />
+        <div class="row is-center">
+            <div id="main" class="col-10 col-8-md">
+                <p> <h1> Instax Square Blur Background <a href="#help" style="font-size: 0.7em">?</a> </h1> </p>
+                <div id="controls">
+                    <form>
+                        <input type="file" accept="image/*" name="imageFileInput" id="imageFileInput" />
 
-                    <input type="radio" name="backgroundType" id="img" value="image" checked />
-                    <label for="image">Image</label>
-                    <input type="radio" name="backgroundType" id="white" value="white" />
-                    <label for="white">White</label>
-                    <input type="radio" name="backgroundType" id="black" value="black" />
-                    <label for="black">Black</label>
-                </form>
-            </div>
-            <div id="imageBox">
-                <div id="background" class="imageBg">
+                        <input type="radio" name="backgroundType" id="img" value="image" checked />
+                        <label for="image">Blurred Image</label>
+                        <input type="radio" name="backgroundType" id="white" value="white" />
+                        <label for="white">White</label>
+                        <input type="radio" name="backgroundType" id="black" value="black" />
+                        <label for="black">Black</label>
+                    </form>
                 </div>
-                <div id="foreground">
-                    <img id="image" src="landscape.jpg">
+                <div id="imageBox">
+                    <div id="background" class="imageBg">
+                    </div>
+                    <div id="foreground">
+                        <img id="image" src="landscape.jpg">
+                    </div>
+                </div>
+                <div id="help">
+                    <p> <h2> What's this? </h2> </p>
+                    <p> This is a simple tool to fit any image inside a square bounding box and fill the empty spaces with some background. I originally made it to make it easy for myself to print photos taken on my Fuji camera (3:2 aspect ratio) from my Instax Square printer without cropping. </p>
+                    <ul>
+                        <li> Use "Browse" to select the image you want </li>
+                        <li> Select one of the background options: black, white or a blurred version of the same image. </li>
+                        <li> Use your browser to take a screenshot of the square element:
+                            <ul>
+                                <li> On Firefox, press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> (Or right click and select "Take Screenshot")</li>
+                                <li> On Chrome, follow <a href="https://umaar.com/dev-tips/156-element-screenshot/">these directions</a> </li>
+                                <li> Select the square bounding box around the image to screenshot </li>
+                                <li> Et voila! </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <span class="is-center text-grey">
+                        <p>🙠 Hand-made by <a href="https://pawandubey.com"> Pawan Dubey</a>. 🙢</p>
+                    </span>
                 </div>
             </div>
         </div>
